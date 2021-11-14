@@ -1,0 +1,78 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Termux配置NatFrp实现远程访问服务</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Termux配置NatFrp实现远程访问服务" data-type="NodeDocument" data-n-id="20210925210248-56z6pbm" type="doc" updated="20210925210248" data-n-id="20210925210248-56z6pbm"><h1 title="Termux配置NatFrp实现远程访问服务" data-type="NodeDocument" data-n-id="20210925210248-56z6pbm" type="doc" updated="20210925210248" data-n-id="20210925210248-56z6pbm">Termux配置NatFrp实现远程访问服务</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-50o6079">title: Termux配置NatFrp实现远程访问服务<br />
+date: 2021-02-06 19:19:55<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-cvmffur">
+<li data-type="NodeListItem" data-n-id="20210925210248-540sdd5"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-yj9tuts">Android</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-z74th40"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-g6cf8aa">Termux</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-94d9vc9"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ubiyy1l">Frp</p>
+</li>
+</ul>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-zpr91cn">1.进入Bin文件夹</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-oghwq7x">（因为Termux特殊的目录结构，所以bin目录与正常的Linux系统并不一样）</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-r0x16ol" class="code-block" data-language=""><code>cd /data/data/com.termux/files/usr/bin
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-108y64i">2.Curl所需安装的frpc程序</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-38pipv9" class="code-block" data-language=""><code>sudo curl -Lo frpc https://getfrp.sh/d/frpc_linux_arm64  #64位系统
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-w1q3ni6">以上示例为64位系统的程序，如果是其他系统的话需要修改链接:<a href="https://www.natfrp.com/tunnel/download">软件下载</a></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-08opp2b">3.安装Frp</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-6qr9e64" class="code-block" data-language=""><code>chmod 755 frpc
+ls -ls frpc
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-46fdm2h"><span class="img"><img src="../assets/1.正常-20210925210248-r7xl7ff.png" alt="1.正常" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-89gbjik">出现类似内容时表明安装成功，可以使用下面代码验证，当输出版本号时表明安装成功</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-yf9sgbj" class="code-block" data-language=""><code>frpc -v
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-pbiblaj">当需要使用NatFrp时只需要在任意目录执行下方命令即可</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-9xwq9un" class="code-block" data-language=""><code>frpc [启动参数]
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-vp3yox1">启动参数在 隧道列表--&gt;隧道--&gt;配置文件 查看</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-q6lgdde">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-87ixt09"><a href="https://doc.natfrp.com/#/?id=sakura-frp-帮助文档">Sakura Frp 帮助文档</a></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ah2wvxp"><a href="https://www.sqlsec.com/2018/05/termux.html#toc-heading-13">Termux 高级终端安装使用配置教程</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

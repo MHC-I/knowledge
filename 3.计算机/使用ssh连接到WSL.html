@@ -1,0 +1,78 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用ssh连接到WSL</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="使用ssh连接到WSL" data-type="NodeDocument" data-n-id="20210925210248-y7bj820" type="doc" updated="20210925210248" data-n-id="20210925210248-y7bj820"><h1 title="使用ssh连接到WSL" data-type="NodeDocument" data-n-id="20210925210248-y7bj820" type="doc" updated="20210925210248" data-n-id="20210925210248-y7bj820">使用ssh连接到WSL</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-8lnm5do">title: 使用ssh连接到WSL<br />
+date: 2021-01-28 17:50:26<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-ct1493p">
+<li data-type="NodeListItem" data-n-id="20210925210248-dqx5bwl"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-qevv6ui">SSL</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-c470t10"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-1pax84p">WSL</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-w3r2w8m"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-u48ztl5">Linux</p>
+</li>
+</ul>
+<hr />
+<h1 id="WSL端设置" data-type="NodeHeading" data-n-id="20210925210248-pcqdate">WSL端设置<a id="vditorAnchor-WSL端设置" class="vditor-anchor" href="#WSL端设置"><img src="./../assets/icon/alink.png" /></a></h1>
+<p data-type="NodeParagraph" data-n-id="20210925210248-yucbwhv">1.安装ssh服务（Ubuntu虽然自带了，但是启动服务时会报错，仍然需要运行下面的命令重新安装）</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-i91x303" class="code-block" data-language="sh"><code>sudo apt install openssh-server
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-a8cmzxj">2.修改ssh配置文件</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-nouxrj4" class="code-block" data-language="sh"><code>sudo vim /etc/ssh/sshd_config #打开sshd编辑文件
+
+13 #Port 22 -&gt; Port [你想设置的ssh端口]                      #13行，修改sshd端口
+56 #PasswordAuthentication no -&gt;PasswordAuthentication yes #56行，允许密码登陆ssh
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-gqbiyc0">3.到你的服务器控制台打开刚刚设置的端口</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-smne04t">4.进入winserver的Windows Defender防火墙打开刚刚设置的端口</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-046xgu0">5.启动ssh服务</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-mfq4211" class="code-block" data-language="sh"><code>sudo /etc/init.d/ssh stop #停止ssh服务
+sudo /etc/init.d/ssh start #启动ssh服务
+sudo /etc/init.d/ssh restart #重启ssh服务
+</code></pre>
+<h1 id="ssh连接" data-type="NodeHeading" data-n-id="20210925210248-33t9ra2">ssh连接<a id="vditorAnchor-ssh连接" class="vditor-anchor" href="#ssh连接"><img src="./../assets/icon/alink.png" /></a></h1>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-mp5qou1" class="code-block" data-language="sh"><code>ssh -p [刚刚设置的端口] [用户名]@[ip地址]
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-4unl5xn">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ln4t2l7"><a href="https://www.cnblogs.com/seekwind/p/10256262.html">Windows子系统linuxwsl开启ssh服务</a></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-v7ut7p9"><a href="https://blog.csdn.net/jackghq/article/details/54974141">Ubuntu开启SSH服务远程登录</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

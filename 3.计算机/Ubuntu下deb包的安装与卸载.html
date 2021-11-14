@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubuntu下deb包的安装与卸载</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Ubuntu下deb包的安装与卸载" data-type="NodeDocument" data-n-id="20210925210248-jf0w1pp" type="doc" updated="20210925210248" data-n-id="20210925210248-jf0w1pp"><h1 title="Ubuntu下deb包的安装与卸载" data-type="NodeDocument" data-n-id="20210925210248-jf0w1pp" type="doc" updated="20210925210248" data-n-id="20210925210248-jf0w1pp">Ubuntu下deb包的安装与卸载</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-tkjnbmo">title: Ubuntu下deb包的安装与卸载<br />
+date: 2021-02-19 13:09:08<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-v7fpqdm">
+<li data-type="NodeListItem" data-n-id="20210925210248-yjbvnsk"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-yd6u10a">Linux</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-hi693ns"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-toyrldv">Ubuntu</p>
+</li>
+</ul>
+<hr />
+<blockquote data-type="NodeBlockquote" data-n-id="20210925210248-3r627x3">
+<p data-type="NodeParagraph" data-n-id="20210925210248-pk7a2av">deb 格式是 Debian 系统(包含 Debian 和 Ubuntu )专属安装包格式，配合 APT 软件管理系统，成为了当前在 Linux 下非常流行的一种安装包</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-be3w90q">-- 百度百科</p>
+</blockquote>
+<h2 id="deb包的安装" data-type="NodeHeading" data-n-id="20210925210248-je98qsc">deb包的安装<a id="vditorAnchor-deb包的安装" class="vditor-anchor" href="#deb包的安装"><img src="./../assets/icon/alink.png" /></a></h2>
+<h3 id="在线安装" data-type="NodeHeading" data-n-id="20210925210248-szi4q5p">在线安装<a id="vditorAnchor-在线安装" class="vditor-anchor" href="#在线安装"><img src="./../assets/icon/alink.png" /></a></h3>
+<p data-type="NodeParagraph" data-n-id="20210925210248-hx1ox66">在线安装可使用apt命令</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-jy7txjc" class="code-block" data-language=""><code>apt install [package name]
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-0j8fobw">若下载速度慢或者无法连接可考虑更换国内源</p>
+<h3 id="离线安装" data-type="NodeHeading" data-n-id="20210925210248-4fw3se9">离线安装<a id="vditorAnchor-离线安装" class="vditor-anchor" href="#离线安装"><img src="./../assets/icon/alink.png" /></a></h3>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ytbzbqv">先通过cd进入deb包所在的目录，再使用dpkg命令安装</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-9w29s2a" class="code-block" data-language=""><code>sudo dpkg -i [packge name.deb]
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-by76ty9">但是一般会报错，形如</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-ycedxru" class="code-block" data-language=""><code>dpkg: dependency problems prevent configuration of youdao-dict：
+...
+dpkg: error processing package youdao-dict (--install):
+...
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-pb9eczr">这时再通过下面的命令安装依赖(后面不带包名)</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-szzoya8" class="code-block" data-language=""><code>apt-get -f install
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-13u2m7q">然后再次执行</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-xa1pnj4" class="code-block" data-language=""><code>sudo dpkg -i [packge name.deb]
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-nd8ya8s">这时应该就完成安装了</p>
+<h2 id="deb包的卸载" data-type="NodeHeading" data-n-id="20210925210248-ee4va5f">deb包的卸载<a id="vditorAnchor-deb包的卸载" class="vditor-anchor" href="#deb包的卸载"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-1xd5nvx">（完全卸载，包括配置文件和依赖，以nginx为例子）</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-gr84gjm">1.删除apt缓存</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-tkmh25c" class="code-block" data-language=""><code>sudo apt-get clean
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-xo5qp3p">2.卸载软件包，–purge包括配置文件</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-mnw4esu" class="code-block" data-language=""><code>sudo apt-get --purge remove nginx
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ecbta2y">3.自动移除全部不使用的软件包</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-y4nymqe" class="code-block" data-language=""><code>sudo apt-get autoremove
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-llcbw3j">4.列出与nginx相关的软件 并删除显示的软件</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-kob8vcv" class="code-block" data-language=""><code>dpkg --get-selections|grep nginx
+
+sudo apt-get --purge remove nginx
+sudo apt-get --purge remove nginx-common
+sudo apt-get --purge remove nginx-core
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-z61cjr6">5.查看是否卸载干净（卸载干净后应显示为空）</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-mvfhfa4" class="code-block" data-language=""><code>dpkg --get-selections|grep nginx
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-775yvox">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-tpacolq"><a href="https://www.cnblogs.com/oxspirt/p/9017204.html">Ubuntu 卸载干净软件(包括配置文件)</a></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-yzhhvvu"><a href="https://www.cnblogs.com/horizonli/p/5179224.html">dpkg安装deb缺少依赖包的解决方法</a></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-wmsv9w1"><a href="https://blog.csdn.net/hebbely/article/details/78521476">Ubuntu下的deb打包、安装与卸载</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

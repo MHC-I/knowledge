@@ -1,0 +1,58 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Excel删除重复项并保留第一项或最后一项</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Excel删除重复项并保留第一项或最后一项" data-type="NodeDocument" data-n-id="20210925210248-aga35lf" type="doc" updated="20210925210248" data-n-id="20210925210248-aga35lf"><h1 title="Excel删除重复项并保留第一项或最后一项" data-type="NodeDocument" data-n-id="20210925210248-aga35lf" type="doc" updated="20210925210248" data-n-id="20210925210248-aga35lf">Excel删除重复项并保留第一项或最后一项</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-m4qqzjg">title: Excel删除重复项并保留第一项或最后一项<br />
+index_img: /postimg/Excel删除重复项并保留第一项或最后一项.jpg<br />
+banner_img: /postimg/Excel删除重复项并保留第一项或最后一项.jpg<br />
+date: 2021-09-10 15:33:34<br />
+categories: 计算机<br />
+tags: Excel</p>
+<hr />
+<h1 id="公式" data-type="NodeHeading" data-n-id="20210925210248-ctqb2ae">公式<a id="vditorAnchor-公式" class="vditor-anchor" href="#公式"><img src="./../assets/icon/alink.png" /></a></h1>
+<h2 id="保留最后一项" data-type="NodeHeading" data-n-id="20210925210248-0e7klow">保留最后一项<a id="vditorAnchor-保留最后一项" class="vditor-anchor" href="#保留最后一项"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-p8z2app" class="code-block" data-language=""><code>=COUNTIF(A1:$A$1000,A1)
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-i4oqdc7">复制到后一列--&gt;下拉--&gt;筛选--&gt;选择不等于1的--&gt;删除</p>
+<h2 id="保留第一项" data-type="NodeHeading" data-n-id="20210925210248-b94mgjf">保留第一项<a id="vditorAnchor-保留第一项" class="vditor-anchor" href="#保留第一项"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-yutgkih" class="code-block" data-language=""><code>=COUNTIF($A$1:A1000,A1000)
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-9l005u0">复制到后一列--&gt;<strong data-type="NodeStrong">上拉</strong>--&gt;筛选--&gt;选择不等于1的--&gt;删除</p>
+<h1 id="解释" data-type="NodeHeading" data-n-id="20210925210248-28px5d0">解释<a id="vditorAnchor-解释" class="vditor-anchor" href="#解释"><img src="./../assets/icon/alink.png" /></a></h1>
+<p data-type="NodeParagraph" data-n-id="20210925210248-w8d9o84"><span class="img"><img src="../assets/picture1-1261456-20210925210248-mt3br6a.png" alt="picture1" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-eei6pi9">有这张图之后该公式就很容易理解，COUNTIF(A1:$A$1000,A1)，其实就是计算A1单元格后有多少个与其相同的单元格(包括A1)，那么当其值大于1的时候就表示其后还有与其相同的单元格，反之其值等于1就表示其后面没有与其相同的单元格，其就是最后一个单元格，最后筛选一下，删除不等于1的行后，剩下的就都是最后一个重复项。</p>
+</main><div class="oceanpress-backLink"></div>
+</main>

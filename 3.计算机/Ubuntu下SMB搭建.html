@@ -1,0 +1,100 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubuntu下SMB搭建</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Ubuntu下SMB搭建" data-type="NodeDocument" data-n-id="20210925210248-06empo0" type="doc" updated="20210925210248" data-n-id="20210925210248-06empo0"><h1 title="Ubuntu下SMB搭建" data-type="NodeDocument" data-n-id="20210925210248-06empo0" type="doc" updated="20210925210248" data-n-id="20210925210248-06empo0">Ubuntu下SMB搭建</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-jbghjod">title: Ubuntu下SMB的搭建<br />
+date: 2021-02-19 13:40:41<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-rxdao2u">
+<li data-type="NodeListItem" data-n-id="20210925210248-4vjknci"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-3jerxmg">Linux</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-v3zthyq"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-z7y4nao">Ubuntu</p>
+</li>
+</ul>
+<hr />
+<h2 id="安装smba" data-type="NodeHeading" data-n-id="20210925210248-k0blst7">安装smba<a id="vditorAnchor-安装smba" class="vditor-anchor" href="#安装smba"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-347kft3" class="code-block" data-language=""><code>sudo apt-get insall samba
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-5gnwfwh">（1）如果安装时候遇到</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-tzopimi" class="code-block" data-language=""><code>E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-h8zxujn">那么执行</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-k5b3itd" class="code-block" data-language=""><code>sudo apt-get update --fix-missing
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-c06mluw">（2）如果安装时遇到</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-d0np2ef" class="code-block" data-language=""><code> /var/lib/dpkg/lock - open (13: 权限不够)
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-6jllhw1">那么强制解锁</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-lzvldg4" class="code-block" data-language=""><code>sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock】
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-zrzw3vw">完成之后再执行</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-jlrdyqj" class="code-block" data-language=""><code>sudo apt-get insall samba
+</code></pre>
+<h2 id="创建共享文件夹" data-type="NodeHeading" data-n-id="20210925210248-x1h9dv8">创建共享文件夹<a id="vditorAnchor-创建共享文件夹" class="vditor-anchor" href="#创建共享文件夹"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-lqtt0m5" class="code-block" data-language=""><code>mkdir smb
+chmod 777 smb
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-9couetu">这时共享目录的路径为/root/smb，可自行设置</p>
+<h2 id="创建smb账户" data-type="NodeHeading" data-n-id="20210925210248-9tl8iq6">创建smb账户<a id="vditorAnchor-创建smb账户" class="vditor-anchor" href="#创建smb账户"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-de5aurb" class="code-block" data-language=""><code>sudo smbpasswd -a coco
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-5cxehep">（命令后会让你输入密码，输入两次，不会显示）</p>
+<h2 id="修改smb配置文件" data-type="NodeHeading" data-n-id="20210925210248-qxgfwt5">修改smb配置文件<a id="vditorAnchor-修改smb配置文件" class="vditor-anchor" href="#修改smb配置文件"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-6box7np" class="code-block" data-language=""><code>sudo vi /etc/samba/smb.conf
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-xqgbwoq">在文件末尾添加</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-i2wu8ao" class="code-block" data-language=""><code>[samba]
+path = /root/smb
+available = yes
+writeable = yes
+security = share
+browseable = yes
+guest ok = yes
+valid users = coco
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ew7w33l">其中<code data-type="NodeCodeSpan">path</code>为刚刚创建的目录，<code data-type="NodeCodeSpan">valid users</code>为刚刚创建的smb账户，根据刚刚创建的情况修改</p>
+<h2 id="重启smb服务" data-type="NodeHeading" data-n-id="20210925210248-guc2cxq">重启smb服务<a id="vditorAnchor-重启smb服务" class="vditor-anchor" href="#重启smb服务"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-srgvxgx" class="code-block" data-language=""><code>sudo /etc/init.d/smbd restart
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-gdqxg81">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-dku5zsf"><a href="https://blog.csdn.net/ymj321/article/details/106530259/">Ubuntu（linux)下smb完整搭建流程</a></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-e3335ex"><a href="https://jingyan.baidu.com/article/3a2f7c2ed314ef26afd611a1.html">Ubuntu下samba配置和使用</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

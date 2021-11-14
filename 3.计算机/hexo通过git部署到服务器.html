@@ -1,0 +1,115 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hexo通过git部署到服务器</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="hexo通过git部署到服务器" data-type="NodeDocument" data-n-id="20210925210248-8kfo7h1" type="doc" updated="20210925210248" data-n-id="20210925210248-8kfo7h1"><h1 title="hexo通过git部署到服务器" data-type="NodeDocument" data-n-id="20210925210248-8kfo7h1" type="doc" updated="20210925210248" data-n-id="20210925210248-8kfo7h1">hexo通过git部署到服务器</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-n73sg6f">title: Hexo通过Git部署到服务器<br />
+date: 2021-02-19 16:58:52<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-vya803u">
+<li data-type="NodeListItem" data-n-id="20210925210248-9cvmehc"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-m6edhau">Hexo</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-gzhd13k"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-rg0et0t">Linux</p>
+</li>
+</ul>
+<hr />
+<h2 id="目的-" data-type="NodeHeading" data-n-id="20210925210248-dn08yzw">目的：<a id="vditorAnchor-目的-" class="vditor-anchor" href="#目的-"><img src="./../assets/icon/alink.png" /></a></h2>
+<ul data-type="NodeList" data-n-id="20210925210248-qstf6le">
+<li data-type="NodeListItem" data-n-id="20210925210248-z0wpyfs"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-k0a29js">通过hexo生成网页</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-jdw1d1v"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-am5oo0h">在服务器上搭建git仓库，并将静态文件通过git上传到云主机</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-ygy9vp0"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-t4osxz0">使用git-hooks实现自动部署</p>
+</li>
+</ul>
+<h2 id="创建git仓库" data-type="NodeHeading" data-n-id="20210925210248-5vf9rk4">创建git仓库<a id="vditorAnchor-创建git仓库" class="vditor-anchor" href="#创建git仓库"><img src="./../assets/icon/alink.png" /></a></h2>
+<h3 id="1-安装git" data-type="NodeHeading" data-n-id="20210925210248-8e9xc7z">1.安装git<a id="vditorAnchor-1-安装git" class="vditor-anchor" href="#1-安装git"><img src="./../assets/icon/alink.png" /></a></h3>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-pjis2mw" class="code-block" data-language=""><code>yum install git #centos
+apt install git #ubuntu
+</code></pre>
+<h3 id="2-添加一个git用户" data-type="NodeHeading" data-n-id="20210925210248-7pk7mth">2.添加一个git用户<a id="vditorAnchor-2-添加一个git用户" class="vditor-anchor" href="#2-添加一个git用户"><img src="./../assets/icon/alink.png" /></a></h3>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-hi7joiv" class="code-block" data-language=""><code>adduser git   #添加git用户
+$ chmod 740 /etc/sudoers   #改变sudoers文件的权限为文件所有者可写
+$ vim /etc/sudoers   #vim编辑sudoers
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-7xotzw1">找到<code data-type="NodeCodeSpan">root ALL=(ALL) ALL</code>，在它下方加入一行</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-7wa2jmg" class="code-block" data-language="text"><code>git ALL=(ALL) ALL
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-a9z154m"><span class="img"><img src="../assets/1.修改sudoers-20210925210248-3i792pm.png" alt="1.修改sudoers" data-type="NodeImage" /></span></p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-vvy7643" class="code-block" data-language=""><code>chmod 400 /etc/sudoers   #将其权限修改为文件所有者可读
+$ sudo passwd git  #设置git用户的密码
+</code></pre>
+<h3 id="3-创建git仓库并使用git-hooks实现自动部署" data-type="NodeHeading" data-n-id="20210925210248-r2dw534">3.创建git仓库并使用git-hooks实现自动部署<a id="vditorAnchor-3-创建git仓库并使用git-hooks实现自动部署" class="vditor-anchor" href="#3-创建git仓库并使用git-hooks实现自动部署"><img src="./../assets/icon/alink.png" /></a></h3>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-7i6n7dd" class="code-block" data-language=""><code>$ sudo mkdir /var/repo    #新建目录，这是git仓库的位置
+$ sudo mkdir /www/wwwroot/blog    #这是博客源文件的目录
+$ cd /var/repo  #转到git仓库的文件夹
+$ sudo git init --bare blog.git #创建一个名叫blog的仓库
+$ sudo vim /var/repo/blog.git/hooks/post-update
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-nk30h9o">增加下面两行，当我们从本地push上去时，git-hooks会自动执行下列命令，这是git自带的的方法，表示在<code data-type="NodeCodeSpan">/var/repo/blog.git</code>中对<code data-type="NodeCodeSpan">/www/wwwroot/blog</code>执行<code data-type="NodeCodeSpan">checkout -f</code>命令，可以在我们每次 push 完之后，把部署目录更新到博客的最新状态</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-4hn28i8" class="code-block" data-language=""><code>#!/bin/bash
+git --work-tree=/www/wwwroot/blog --git-dir=/var/repo/blog.git checkout -f
+</code></pre>
+<h3 id="4-修改权限" data-type="NodeHeading" data-n-id="20210925210248-6fp3121">4.修改权限<a id="vditorAnchor-4-修改权限" class="vditor-anchor" href="#4-修改权限"><img src="./../assets/icon/alink.png" /></a></h3>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-r8l5cjr" class="code-block" data-language=""><code>$ cd blog.git/hooks/
+$ sudo chown -R git:git /var/repo/      #进行文件夹及其子文件所有者变更为git
+$ sudo chown -R git:git /www/wwwroot/blog  #进行文件夹及其子文件所有者变更为git
+$ sudo chmod +x post-update  #赋予post-update可执行权限
+</code></pre>
+<h2 id="创建静态页面" data-type="NodeHeading" data-n-id="20210925210248-qfl945a">创建静态页面<a id="vditorAnchor-创建静态页面" class="vditor-anchor" href="#创建静态页面"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-541tbds">两种方法可选</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-8s14t2t">1.使用宝塔面板创建一个静态站点，将网站根目录修改为<code data-type="NodeCodeSpan">/www/wwwroot/blog</code>即可</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ti4tvh4"><span class="img"><img src="../assets/2.修改站点目录-20210925210248-qqakpyc.png" alt="2.修改站点目录" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-3i0xpvn">2.直接修改nginx配置文件，参考原文章(未进行测试)</p>
+<h2 id="修改hexo配置文件" data-type="NodeHeading" data-n-id="20210925210248-yzqaac3">修改hexo配置文件<a id="vditorAnchor-修改hexo配置文件" class="vditor-anchor" href="#修改hexo配置文件"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-3hnvygh">找到文件<code data-type="NodeCodeSpan">/hexo/_config.yml</code></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-9tpny28">在最后面找到<code data-type="NodeCodeSpan">deploy:</code>修改为</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-364x632" class="code-block" data-language=""><code>deploy:
+  type: git
+  repo: git@192.168.0.3:/var/repo/blog.git
+  branch: master
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-38t5cbk">将<code data-type="NodeCodeSpan">192.168.0.3</code>修改为你的服务器地址</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-76whj31">注意：需要打开ssh端口，即22端口</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-1jfd02l">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-bd62t0i"><a href="https://zhuanlan.zhihu.com/p/83095214">通过Git将Hexo博客部署到服务器</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

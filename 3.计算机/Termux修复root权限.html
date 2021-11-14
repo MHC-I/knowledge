@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Termux修复root权限</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Termux修复root权限" data-type="NodeDocument" data-n-id="20210925210248-xspdq68" type="doc" updated="20210925210248" data-n-id="20210925210248-xspdq68"><h1 title="Termux修复root权限" data-type="NodeDocument" data-n-id="20210925210248-xspdq68" type="doc" updated="20210925210248" data-n-id="20210925210248-xspdq68">Termux修复root权限</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-t6tikj4">title: Termux修复root权限<br />
+date: 2021-02-06 20:43:56<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-klbgg6h">
+<li data-type="NodeListItem" data-n-id="20210925210248-61c9lcg"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-u4mya73">Termux</p>
+</li>
+</ul>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-0fmy8yg">在Termux中使用su时会因目录结构的原因造成许多命令无法正常使用，我尝试过chroot和tsu好像都不能正常使用，最终使用下面的方法正常使用su。</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-yjrqewc">进入Termux，直接运行下方命令，若未安装wget需要先安装一下。</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-vduw8b2" class="code-block" data-language=""><code>wget https://mhci.coding.net/p/termux-su/d/master/git/tree/master/install.sh &gt;/dev/null 2&gt;&amp;1 &amp;&amp; chmod +x install.sh &amp;&amp; ./install.sh
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-dadxu7w">脚本已克隆到至coding，原项目地址：<a href="https://github.com/xicor22/Sudo-su-Termux">Sudo-su-Termux</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

@@ -1,0 +1,172 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>思源笔记docker搭建及后续使用优化（小白向）</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="思源笔记docker搭建及后续使用优化（小白向）" updated="20211101172104" data-type="NodeDocument" data-n-id="20211030092504-oqyrlqe" updated="20211101172104" data-n-id="20211030092504-oqyrlqe"><h1 title="思源笔记docker搭建及后续使用优化（小白向）" updated="20211101172104" data-type="NodeDocument" data-n-id="20211030092504-oqyrlqe" updated="20211101172104" data-n-id="20211030092504-oqyrlqe">思源笔记docker搭建及后续使用优化（小白向）</h1>
+<h1 id="一-docker-服务端的安装-使用-Docker-Compose-" updated="20211030092507" data-type="NodeHeading" data-n-id="20211030092507-7dw7tl3">一、docker 服务端的安装（使用 Docker-Compose）<a id="vditorAnchor-一-docker-服务端的安装-使用-Docker-Compose-" class="vditor-anchor" href="#一-docker-服务端的安装-使用-Docker-Compose-"><img src="./../assets/icon/alink.png" /></a></h1>
+<ol start="0" updated="20211030092507" data-type="NodeList" data-n-id="20211030092507-boqgfxc">
+<li updated="20211030092507" data-type="NodeListItem" data-n-id="20211030092507-tz60pwm"><span class="ListItemDot">1.</span>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-kws22fy">安装 docker</p>
+<pre updated="20211030092507" data-type="NodeCodeBlock" data-n-id="20211030092507-vwtqc63" class="code-block" data-language="bash"><code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+</code></pre></li>
+<li updated="20211030092507" data-type="NodeListItem" data-n-id="20211030092507-ifkluep"><span class="ListItemDot">2.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-3q3wph8">安装 docker-compose</p>
+<pre updated="20211030092507" data-type="NodeCodeBlock" data-n-id="20211030092507-qfh1a9o" class="code-block" data-language="bash"><code>curl -L https://get.daocloud.io/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20211030092507-lwjbf95">命令中的 1.24.1 是 docker-compose 的版本号，可以修改为自己想要的版本号
+上述两步出现问题的需要自己百度解决，或者直接在下面评论</p>
+</li>
+<li updated="20211030092524" data-type="NodeListItem" data-n-id="20211030092507-br5aym5"><span class="ListItemDot">3.</span>
+<p updated="20211030092524" data-type="NodeParagraph" data-n-id="20211030092507-rebnsx6">准备笔记数据目录
+我是直接将 SiYuan 目录放在了/root 目录下
+（安装了宝塔的可以直接在这个界面将本地的 SiYuan 目录拖到这里）
+<span class="img"><img src="../assets/image-20211030092524-nygi4om.png" alt="image.png" data-type="NodeImage" /></span>
+所以我的资源路径就是/root/SiYuan</p>
+</li>
+<li updated="20211030092542" data-type="NodeListItem" data-n-id="20211030092507-y6flqz9"><span class="ListItemDot">4.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-0zoq3pz">准备 docker-compose.yml 文件</p>
+<pre data-type="NodeCodeBlock" data-n-id="20211030092507-5jylnac" class="code-block" data-language="bash"><code>version: '3'
+
+services:
+  siyuan:
+    image: b3log/siyuan:latest
+    container_name: siyuan
+    restart: always
+    volumes:
+      - /root/SiYuan:/root/Documents/SiYuan
+    command: [--resident=true,--workspace=/root/Documents/SiYuan,--ssl=true,--accessAuthCode=授权码,--servePath=绑定域名]
+    network_mode: &quot;host&quot;
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20211030092507-5vqemjt">修改代码中的中文内容为你自己需要的，不需要绑定域名的可以将 serverpath 参数删除
+通过 vim 在/root/SiYuan 路径下新建一个 docker-compose.yml 文件，写入上面的内容</p>
+<pre data-type="NodeCodeBlock" data-n-id="20211030092507-c74ct2o" class="code-block" data-language="bash"><code>cd /root/SiYuan #进入/root/SiYuan路径
+vim docker-compose.yml #新建一个docker-compose.yml文件并打开编辑
+</code></pre>
+<p updated="20211030092542" data-type="NodeParagraph" data-n-id="20211030092507-s0etvf7">这个时候按一下<kbd> i</kbd>进入编辑模式，然后复制上面修改好的内容，返回命令窗口 <kbd>Ctrl+V</kbd>粘贴内容
+这时候你大概能看到如下界面
+<span class="img"><img src="../assets/image-20211030092542-gs3m39v.png" alt="image.png" data-type="NodeImage" /></span>
+现在按一下 <kbd>Esc</kbd>，然后输入<kbd>:wq</kbd>，docker-compose.yml 文件就建好了</p>
+</li>
+<li updated="20211030092554" data-type="NodeListItem" data-n-id="20211030092507-peu0nro"><span class="ListItemDot">5.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-0vcwi26">通过 Docker-Compose 部署并启动 docker</p>
+<pre data-type="NodeCodeBlock" data-n-id="20211030092507-b4re61d" class="code-block" data-language="bash"><code>cd /root/SiYuan #进入刚刚docker-compose.yml文件所在的目录
+docker-compose up #启动思源
+</code></pre>
+<p updated="20211030092554" data-type="NodeParagraph" data-n-id="20211030092507-obm5sol">稍等片刻，你就能看到如下界面
+<span class="img"><img src="../assets/image-20211030092554-a8k5jgd.png" alt="image.png" data-type="NodeImage" /></span>
+这时候 docker 端的思源笔记就安装启动好了，你服务器的 ip:6806 就能进入了（记得打开防火墙端口）</p>
+</li>
+</ol>
+<h1 id="二-docker-端的更新" id="20211030092507-icem2oc" data-type="NodeHeading" data-n-id="20211030092507-icem2oc">二、docker 端的更新<a id="vditorAnchor-二-docker-端的更新" class="vditor-anchor" href="#二-docker-端的更新"><img src="./../assets/icon/alink.png" /></a></h1>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-wvqjzdq">众所周知，思源笔记的更新是非常快的，所以，我们必须掌握简便的更新方法，这也是我为什么使用 Docker-Compose 部署的原因。粗鲁一点，直接复制粘贴到命令窗口</p>
+<pre updated="20211030092507" data-type="NodeCodeBlock" data-n-id="20211030092507-nz9l1d5" class="code-block" data-language="bash"><code>cd SiYuan
+docker-compose stop
+docker-compose rm siyuan
+docker rmi b3log/siyuan
+docker-compose up
+</code></pre>
+<h1 id="三-配置反代-并设置-SSL" updated="20211030092507" data-type="NodeHeading" data-n-id="20211030092507-gfqyznq">三、配置反代，并设置 SSL<a id="vditorAnchor-三-配置反代-并设置-SSL" class="vditor-anchor" href="#三-配置反代-并设置-SSL"><img src="./../assets/icon/alink.png" /></a></h1>
+<ol start="0" updated="20211101172104" data-type="NodeList" data-n-id="20211030092507-krmad9t">
+<li data-type="NodeListItem" data-n-id="20211030092507-yqu4k5g"><span class="ListItemDot">1.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-qszj062">在服务器中新建一个网站，用来反代</p>
+<p updated="20211030092613" data-type="NodeParagraph" data-n-id="20211030092611-lbtbjug"><span class="img"><img src="../assets/image-20211030092613-u93ieek.png" alt="image.png" data-type="NodeImage" /></span></p>
+</li>
+<li data-type="NodeListItem" data-n-id="20211030092507-itatvib"><span class="ListItemDot">2.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-r0pflps">配置反向代理（如图 3 填）
+</p>
+<p updated="20211030092626" data-type="NodeParagraph" data-n-id="20211030092619-7dflmnj"><span class="img"><img src="../assets/image-20211030092626-onesmwd.png" alt="image.png" data-type="NodeImage" /></span></p>
+</li>
+<li data-type="NodeListItem" data-n-id="20211030092507-ajowvtd"><span class="ListItemDot">3.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-5rm2awa">配置 nginx（否则会卡在 logo 界面一直转圈圈）</p>
+<pre data-type="NodeCodeBlock" data-n-id="20211030092507-h2b8bds" class="code-block" data-language="bash"><code>location /ws {
+           proxy_pass http://127.0.0.1:6806; 
+           proxy_read_timeout 60s;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'Upgrade';
+        }  
+
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20211030092507-zp2p96j">将上面的代码填入 ② 所示位置
+</p>
+<p updated="20211030092643" data-type="NodeParagraph" data-n-id="20211030092631-zw0us24"><span class="img"><img src="../assets/image-20211030092643-lsg579e.png" alt="image.png" data-type="NodeImage" /></span></p>
+</li>
+<li data-type="NodeListItem" data-n-id="20211030092507-hnhx8f6"><span class="ListItemDot">4.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-27flhav">申请 SSL 证书，这个我相信你们都已经有了（证书我是 Dnspod 申请的，感觉蛮方便）</p>
+</li>
+<li updated="20211101172104" data-type="NodeListItem" data-n-id="20211030092507-fwv19ex"><span class="ListItemDot">5.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-9hms2yv">在下载下来的证书文件夹中找到 nginx 文件夹，打开 key 结尾和 crt 结尾的两个文件，将内容分别拷贝到下面两个地方，然后保存，这就大功告成了（偷偷说一句，反代后不配置 ssl 也是会卡在 logo 那的）
+</p>
+<p updated="20211101172104" data-type="NodeParagraph" data-n-id="20211101172103-wzbvx0a"><span class="img" style="display: inline-block;width: 709px;" style="max-width: 719px;"><img src="../assets/截屏2021-11-01 17.14.49-20211101172104-s2424t8.png" alt="截屏2021-11-01 17.14.49.png" parent-style="max-width: 719px;" style="width: 709px;" data-type="NodeImage" /></span></p>
+</li>
+<li data-type="NodeListItem" data-n-id="20211030092507-mgcttj2"><span class="ListItemDot">6.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-iu3l8p7">这时候，就可以通过域名的方式在各个设备上访问你的笔记了</p>
+</li>
+</ol>
+<h1 id="四-将-docker-版的思源笔记打包成应用" id="20211030092507-dmx8qgu" data-type="NodeHeading" data-n-id="20211030092507-dmx8qgu">四、将 docker 版的思源笔记打包成应用<a id="vditorAnchor-四-将-docker-版的思源笔记打包成应用" class="vditor-anchor" href="#四-将-docker-版的思源笔记打包成应用"><img src="./../assets/icon/alink.png" /></a></h1>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-man615w">或许，你的 MacBook 打开 edge 会有一丢丢慢，或许你不想每次写笔记都要打开 edge，或许你想每次用思源笔记都像在本地安装了一样，快来试试 nativefier 吧</p>
+<ol start="0" updated="20211030093803" data-type="NodeList" data-n-id="20211030092507-uahbsmt">
+<li data-type="NodeListItem" data-n-id="20211030092507-a57t8c0"><span class="ListItemDot">1.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-k1f4wel">安装 nativefier（需要先<a href="https://www.runoob.com/nodejs/nodejs-install-setup.html">安装 npm</a>）</p>
+<pre data-type="NodeCodeBlock" data-n-id="20211030092507-f4p1lla" class="code-block" data-language="bash"><code>npm install nativefier -g
+</code></pre></li>
+<li updated="20211030093803" data-type="NodeListItem" data-n-id="20211030092507-oc2c9ed"><span class="ListItemDot">2.</span>
+<p updated="20211030092811" data-type="NodeParagraph" data-n-id="20211030092507-v8n36jg">将这个文件下载下来，重命名为 app.icns，放到你的用户目录下</p>
+<p updated="20211030093803" data-type="NodeParagraph" data-n-id="20211030092812-3co511q"><a href="../assets/app-20211029203619-mc3vs4g.icns">app.icns</a></p>
+</li>
+<li data-type="NodeListItem" data-n-id="20211030092507-3es2qzz"><span class="ListItemDot">3.</span>
+<p data-type="NodeParagraph" data-n-id="20211030092507-kqcqpjw">打包</p>
+<pre data-type="NodeCodeBlock" data-n-id="20211030092507-vpvnyvd" class="code-block" data-language="bash"><code>nativefier --name &quot;SiYuan&quot; &quot;你配置的笔记域名&quot; --full-screen true --icon /Users/coco/app.icns
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20211030092507-42t16b3">我配置了 full-screen （默认全屏打开软件）和 icon（应用图标，后面的路径就是图标的路径）参数，它还有许多可以配置的选项，非常简单，可以通过 <code data-type="NodeCodeSpan">nativefier--help</code> 命令来查看，我相信你们都是看得懂的</p>
+</li>
+</ol>
+<h1 id="五-通过-git-定时备份笔记" updated="20211030092507" data-type="NodeHeading" data-n-id="20211030092507-erubf1s">五、通过 git 定时备份笔记<a id="vditorAnchor-五-通过-git-定时备份笔记" class="vditor-anchor" href="#五-通过-git-定时备份笔记"><img src="./../assets/icon/alink.png" /></a></h1>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-2woe8at">改日再更，今天真的累了</p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-earjvon">参考文章</p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-6gfwo5u"><a href="https://ld246.com/article/1628948670547">思源笔记 docker compose 部署</a></p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-czjkp9n"><a href="https://www.runoob.com/nodejs/nodejs-install-setup.html" title="Node.js 安装配置"> Node.js 安装配置</a></p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-05j97pj"><a href="https://www.cnblogs.com/lxmzq/p/12532273.html">docker compose 国内安装</a></p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-pelqhpg"><a href="https://www.runoob.com/docker/ubuntu-docker-install.html" title="Ubuntu Docker 安装">Ubuntu Docker 安装</a></p>
+<h1 id="六-最后的话" updated="20211030092507" data-type="NodeHeading" data-n-id="20211030092507-al5vqku">六、最后的话<a id="vditorAnchor-六-最后的话" class="vditor-anchor" href="#六-最后的话"><img src="./../assets/icon/alink.png" /></a></h1>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-85x1ew5">我个人觉得 docker 部署才是最适合我的方式，数据集中管理，不会出现数据的冲突，在任何一台联网设备上都可以实现笔记的查看修改。甚至，更新也可以通过简单的命令更新所有设备上的版本，还可以使用 git 备份笔记，实现笔记版本的回溯。</p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-sn4k3dh">思源笔记真的是我在 notion、语雀、为知、幕布等用下来感觉最满意的一款笔记（我没有任何贬低其他软件的意思，只是感觉思源更加适合我）。甚至白嫖也能获得与会员差不多的本地体验，但是，我更呼吁大家积极支持开发者，尊重开发者的劳动成果， 鼓励他们能够投入更多的精力（可能已经足够多了 😂），来让这款软件更加完善。98 一年的会员真的不贵，它所产生的价值肯定远不止 98，如果你入坑了，并且真的觉得软件不错的话强烈建议开个会员支持一波开发者。</p>
+<p updated="20211030092507" data-type="NodeParagraph" data-n-id="20211030092507-f40gkwj">emmm，差点忘了，如果开会员记得填我推荐码 H86uQsl ，不要记错了，是 H86uQsl</p>
+</main><div class="oceanpress-backLink"><h2>链接到此文档的相关文档</h2>
+<oceanpress-embedded-block src="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba.html#20211030092459-miu8vf8" title="../3.计算机.html#20211030092459-miu8vf8">
+    <p updated="20211030092504" data-type="NodeParagraph" data-n-id="20211030092459-miu8vf8"><oceanpress-block-ref src="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba/%e6%80%9d%e6%ba%90%e7%ac%94%e8%ae%b0docker%e6%90%ad%e5%bb%ba%e5%8f%8a%e5%90%8e%e7%bb%ad%e4%bd%bf%e7%94%a8%e4%bc%98%e5%8c%96%ef%bc%88%e5%b0%8f%e7%99%bd%e5%90%91%ef%bc%89.html#20211030092504-oqyrlqe" title="思源笔记docker搭建及后续使用优化（小白向）"><a href="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba/%e6%80%9d%e6%ba%90%e7%ac%94%e8%ae%b0docker%e6%90%ad%e5%bb%ba%e5%8f%8a%e5%90%8e%e7%bb%ad%e4%bd%bf%e7%94%a8%e4%bc%98%e5%8c%96%ef%bc%88%e5%b0%8f%e7%99%bd%e5%90%91%ef%bc%89.html#20211030092504-oqyrlqe">思源笔记docker搭建及后续使用优化（小白向）</a></oceanpress-block-ref ></p>
+</oceanpress-embedded-block>
+</div>
+</main>

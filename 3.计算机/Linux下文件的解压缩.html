@@ -1,0 +1,60 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Linux下文件的解压缩</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Linux下文件的解压缩" data-type="NodeDocument" data-n-id="20210925210248-w7vtgsy" type="doc" updated="20210925210248" data-n-id="20210925210248-w7vtgsy"><h1 title="Linux下文件的解压缩" data-type="NodeDocument" data-n-id="20210925210248-w7vtgsy" type="doc" updated="20210925210248" data-n-id="20210925210248-w7vtgsy">Linux下文件的解压缩</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-ik5gwu8">title: Linux下文件的解压缩<br />
+date: 2021-02-20 10:23:04<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-dmxcvcx">
+<li data-type="NodeListItem" data-n-id="20210925210248-k1zbuq2"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-k8uazux">Linux</p>
+</li>
+</ul>
+<hr />
+<h2 id="tar压缩文件" data-type="NodeHeading" data-n-id="20210925210248-gyy4dst">tar压缩文件<a id="vditorAnchor-tar压缩文件" class="vditor-anchor" href="#tar压缩文件"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-w6nclpv" class="code-block" data-language=""><code>tar -zcvf [name].tar.gz ./[name]/
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-bsiprhn">该命令表示压缩当前路径下的文件夹[name]，压缩后命名为[name].tar.gz</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-l9y3pjn">如果不需要压缩成gz，只需要后缀为tar格式的，那么只需输入</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-b7m1l2d" class="code-block" data-language=""><code>tar -zcvf [name].tar ./[name]/
+</code></pre>
+<h2 id="tar解压文件" data-type="NodeHeading" data-n-id="20210925210248-rw9yktt">tar解压文件<a id="vditorAnchor-tar解压文件" class="vditor-anchor" href="#tar解压文件"><img src="./../assets/icon/alink.png" /></a></h2>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-oqfcrtl" class="code-block" data-language=""><code>tar -xzvf [name].tar.gz
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-192u3x7">该命令表示把[name].tar.gz的文件解压到当前文件夹下</p>
+</main><div class="oceanpress-backLink"></div>
+</main>

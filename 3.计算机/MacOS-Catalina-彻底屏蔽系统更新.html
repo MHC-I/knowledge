@@ -1,0 +1,73 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MacOS-Catalina-彻底屏蔽系统更新</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="MacOS-Catalina-彻底屏蔽系统更新" data-type="NodeDocument" data-n-id="20210925210248-cjrewkf" type="doc" updated="20210925210248" data-n-id="20210925210248-cjrewkf"><h1 title="MacOS-Catalina-彻底屏蔽系统更新" data-type="NodeDocument" data-n-id="20210925210248-cjrewkf" type="doc" updated="20210925210248" data-n-id="20210925210248-cjrewkf">MacOS-Catalina-彻底屏蔽系统更新</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-15ge2yk">title: MacOS Catalina 彻底屏蔽系统更新<br />
+date: 2021-02-04 22:24:43<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-jv2colv">
+<li data-type="NodeListItem" data-n-id="20210925210248-friguew"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-2uq40bj">Mac</p>
+</li>
+</ul>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-afuxg9g">Mac OS Bigsur 正式版发布后，Catalina会经常检查更新，不仅会在docker栏出现小红点，当点击苹果菜单时也会有相关的信息，逼死强迫症。通过下面的方法屏蔽后，随意点进系统更新，也不会出现小红点了</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-0edfypd"><span class="img"><img src="../assets/1.检查更新-20210925210248-89sv9lv.png" alt="1.检查更新" data-type="NodeImage" /></span></p>
+<h2 id="修改host" data-type="NodeHeading" data-n-id="20210925210248-39h9wqr">修改host<a id="vditorAnchor-修改host" class="vditor-anchor" href="#修改host"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-flhqopo">1.打开终端（Terminal），输入命令</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-ymt8sl7" class="code-block" data-language=""><code>sudo vim /etc/hosts
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-n6ujb10">输入密码（密码不会显示，输完直接回车），打开后大概是这个样子的</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-0fl13cv"><span class="img"><img src="../assets/2.打开host-20210925210248-2nfup29.png" alt="2.打开host" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-o8mxhn7">2.切换到英文输入法，按'i'键，切换到编辑模式（图片所示）</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-mm3e7kx"><span class="img"><img src="../assets/3.编辑模式-20210925210248-op3dftn.png" alt="3.编辑模式" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-rhdirzq">3.使用方向键将光标移动至最后--&gt;回车--&gt;将下列代码粘贴进去</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-0x4hh1k" class="code-block" data-language="text"><code>127.0.0.1 swscan.apple.com
+127.0.0.1 swcdn.apple.com
+127.0.0.1 swdist.apple.com
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-x9k9sja"><span class="img"><img src="../assets/4.修改后-20210925210248-0jmrqrl.png" alt="4.修改后" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ec3294q">修改后应该如上图</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-gil54hv">4.保存内容：按'esc'键--&gt;输入':wq'（使用按键输入，输入后入下图）--&gt;回车</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-jg77wiw"><span class="img"><img src="../assets/5.保存-20210925210248-xuphzfw.png" alt="5.保存" data-type="NodeImage" /></span></p>
+<h2 id="去除现有小红点" data-type="NodeHeading" data-n-id="20210925210248-2h5y3ea">去除现有小红点<a id="vditorAnchor-去除现有小红点" class="vditor-anchor" href="#去除现有小红点"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-sg6gba5">打开终端（Terminal），输入命令</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-g6530l0" class="code-block" data-language=""><code>defaults write com.apple.systempreferences AttentionPrefBundleIDs 0 &amp;&amp; killall Dock
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-zkmg9lh">现在就彻底的屏蔽系统更新了，随意点进系统更新也检查不到了，当想要更新系统时，反向操作，把加入host里面的东西删除就行。</p>
+</main><div class="oceanpress-backLink"></div>
+</main>

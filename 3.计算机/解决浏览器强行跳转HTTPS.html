@@ -1,0 +1,58 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解决浏览器强行跳转HTTPS</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="解决浏览器强行跳转HTTPS" data-type="NodeDocument" data-n-id="20210925210248-yh3x68q" type="doc" updated="20210925210248" data-n-id="20210925210248-yh3x68q"><h1 title="解决浏览器强行跳转HTTPS" data-type="NodeDocument" data-n-id="20210925210248-yh3x68q" type="doc" updated="20210925210248" data-n-id="20210925210248-yh3x68q">解决浏览器强行跳转HTTPS</h1>
+<hr />
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-63uqkdm">当网站曾经支持https访问，之后由于某些特殊原因只支持http访问时（没错，就是我的网站），浏览器会默认跳转https而导致无法连接，这个时候无论是使用<code data-type="NodeCodeSpan">http://mhcii.top</code>还是通过<code data-type="NodeCodeSpan">mhcii.top</code>访问都会默认跳转到<code data-type="NodeCodeSpan">https://mhcii.top</code></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-239dqmq"><span class="img"><img src="../assets/1.无法访问-20210925210248-r370esi.png" alt="1.无法访问" data-type="NodeImage" /></span></p>
+<h2 id="Safari-Mac-" data-type="NodeHeading" data-n-id="20210925210248-ldome4v">Safari（Mac）<a id="vditorAnchor-Safari-Mac-" class="vditor-anchor" href="#Safari-Mac-"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-6fii8k6">1.完全退出Safari</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-zygms0x">2.打开终端，输入下面的命令</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-p3vsvgt" class="code-block" data-language=""><code>rm  ~/Library/Cookies/HSTS.plist
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-5elxd85">3.重启一下电脑</p>
+<h2 id="Safari-iPhone-iPad-" data-type="NodeHeading" data-n-id="20210925210248-hxjau4p">Safari（iPhone、iPad）<a id="vditorAnchor-Safari-iPhone-iPad-" class="vditor-anchor" href="#Safari-iPhone-iPad-"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-0c39lmr">设置--&gt;Safari浏览器--&gt;清除历史记录与网站数据</p>
+<h2 id="Chrome-Edge" data-type="NodeHeading" data-n-id="20210925210248-p2pxlgx">Chrome/Edge<a id="vditorAnchor-Chrome-Edge" class="vditor-anchor" href="#Chrome-Edge"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-8y2nkq3">1.在地址栏输入<code data-type="NodeCodeSpan">chrome://net-internals/#hsts</code></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-unquzum">2.在打开的界面中滑至最后</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-bzoxiar"><span class="img"><img src="../assets/2.Chrome-2958807-20210925210248-daqxm0p.png" alt="2.Chrome" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-40bvda5">3.在 Delete domain security policies 中输入项目的域名,并 Delete 删除</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ix25jhj">4.清除浏览器历史记录（非必要，在上述步骤无效时可以试试）</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-r1t7f9m">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-k1y9h04"><a href="https://www.cnblogs.com/52py/p/10954019.html">浏览器http跳转至https问题</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

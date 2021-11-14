@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aria2配置ssl并通过frp映射aria-rpc</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Aria2配置ssl并通过frp映射aria-rpc" data-type="NodeDocument" data-n-id="20210925210248-halnwre" type="doc" updated="20210925210248" data-n-id="20210925210248-halnwre"><h1 title="Aria2配置ssl并通过frp映射aria-rpc" data-type="NodeDocument" data-n-id="20210925210248-halnwre" type="doc" updated="20210925210248" data-n-id="20210925210248-halnwre">Aria2配置ssl并通过frp映射aria-rpc</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-t8a1z83">title: Aria2配置ssl并通过frp映射aria rpc<br />
+date: 2021-02-20 10:32:53<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-yejodvi">
+<li data-type="NodeListItem" data-n-id="20210925210248-v9s6lac"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-6hdrhwf">Aria2</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-6bispmq"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-7izdxs4">Frp</p>
+</li>
+</ul>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-wa4x8yy">当AriaNg通过https访问时，ariarpc会强制要求通过https或websocket连接，这时候就需要给aria2配置ssl来开启https访问。</p>
+<h2 id="创建Https隧道-申请ssl证书" data-type="NodeHeading" data-n-id="20210925210248-i3zyf99">创建Https隧道，申请ssl证书<a id="vditorAnchor-创建Https隧道-申请ssl证书" class="vditor-anchor" href="#创建Https隧道-申请ssl证书"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-60uhfy2">我是使用的是natfrp创建隧道，创建完通过dnspods将域名解析到natfrp，顺便通过dnspods申请ssl证书</p>
+<h2 id="Aria配置ssl证书" data-type="NodeHeading" data-n-id="20210925210248-l3814ir">Aria配置ssl证书<a id="vditorAnchor-Aria配置ssl证书" class="vditor-anchor" href="#Aria配置ssl证书"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-p9ae4z7">1.将dnspods申请的或者其他地方申请的证书下载下来，应该有如下一些文件，我们需要的是Nginx目录下的文件</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-313j52k"><span class="img"><img src="../assets/1.下载证书-20210925210248-ndmwoib.png" alt="1.下载证书" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-i3wb8u7">2.将nginx目录下的两个文件放到aria2的目录，或者其他自己能够找到的地方</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-hcnqtid">3.找到<code data-type="NodeCodeSpan">aria2.conf</code>文件，我是通过脚本安装的，文件在<code data-type="NodeCodeSpan">/root/.aria2c/</code>目录下，找到如下内容，这是修改之后的内容</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-3me4qe9" class="code-block" data-language=""><code># RPC 服务 SSL/TLS 加密, 默认：false
+# 启用加密后必须使用 https 或者 wss 协议连接
+rpc-secure=true
+
+# 在 RPC 服务中启用 SSL/TLS 加密时的证书文件(.pem/.crt)
+rpc-certificate=/root/.aria2c/ariarpc.crt
+
+# 在 RPC 服务中启用 SSL/TLS 加密时的私钥文件(.key)
+rpc-private-key=/root/.aria2c/ariarpc.key
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-9t2151r">⚠️注意：<code data-type="NodeCodeSpan">rpc-certificate=/root/.aria2c/ariarpc.crt</code>aria2c.conf中默认的后缀是<code data-type="NodeCodeSpan">.pem</code>但是Nginx里的是<code data-type="NodeCodeSpan">.crt</code>，所以这里需要修改为<code data-type="NodeCodeSpan">.crt</code></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-8tmiulr">4.修改完成后，重启一下Aria，启动成功说明这里的配置基本没问题了，失败的话注意检查前面的两个文件是否已经放上去，conf里填的路径是否正确</p>
+<h2 id="配置Frp" data-type="NodeHeading" data-n-id="20210925210248-0tx8rte">配置Frp<a id="vditorAnchor-配置Frp" class="vditor-anchor" href="#配置Frp"><img src="./../assets/icon/alink.png" /></a></h2>
+<p data-type="NodeParagraph" data-n-id="20210925210248-72wazpe">1.创建frp隧道</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-miaxk5f"><span class="img"><img src="../assets/2.创建隧道-20210925210248-vaq1x1x.png" alt="2.创建隧道" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-ygtsaoa">注意本地端口是6800</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-1rtk3q9">2.创建完成后需要启动隧道，详细看natfrp的帮助文档</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-gbc80hl">3.将绑定的域名解析到frp上</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-f1w7zbf">4.配置AriaNg</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-4myna3i"><span class="img"><img src="../assets/3.ariang-20210925210248-he6y6fd.png" alt="3.ariang" data-type="NodeImage" /></span></p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-qw53tvs">配置完证书之后可以使用websocket协议也可以使用https协议，需要注意连接到端口为443</p>
+</main><div class="oceanpress-backLink"></div>
+</main>

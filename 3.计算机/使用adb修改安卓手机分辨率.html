@@ -1,0 +1,63 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用adb修改安卓手机分辨率</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="使用adb修改安卓手机分辨率" data-type="NodeDocument" data-n-id="20210925210248-g86mb54" type="doc" updated="20210925210248" data-n-id="20210925210248-g86mb54"><h1 title="使用adb修改安卓手机分辨率" data-type="NodeDocument" data-n-id="20210925210248-g86mb54" type="doc" updated="20210925210248" data-n-id="20210925210248-g86mb54">使用adb修改安卓手机分辨率</h1>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-xwfnagv">title: 使用adb修改安卓手机分辨率<br />
+date: 2021-01-18 17:49:02<br />
+categories: 计算机<br />
+tags:</p>
+<ul data-type="NodeList" data-n-id="20210925210248-1v1le4h">
+<li data-type="NodeListItem" data-n-id="20210925210248-9vp5pjj"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-3e3xuft">Android</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210925210248-6j56zxc"><span class="ListItemDot"></span>
+<p data-type="NodeParagraph" data-n-id="20210925210248-pm8txev">ADB</p>
+</li>
+</ul>
+<hr />
+<p data-type="NodeParagraph" data-n-id="20210925210248-s1bxaw6">1.前提条件：①电脑已经安装adb；②手机连接电脑，并且已经开启‘开发人员调试工具’</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-gb1hx0s">2.代码如下</p>
+<pre data-type="NodeCodeBlock" data-n-id="20210925210248-9l58csq" class="code-block" data-language="cmd"><code>1.修改为指定分辨率
+#分辩率中的乘号即为小写字母x
+adb shell wm size 1080x1920
+adb shell wm size 1080x2340
+2.恢复为默认分辨率
+adb shell wm size reset
+</code></pre>
+<p data-type="NodeParagraph" data-n-id="20210925210248-0zaa8za">🔗参考：</p>
+<p data-type="NodeParagraph" data-n-id="20210925210248-3do2zgs"><a href="https://www.jianshu.com/p/da563d019053">Android 通过adb修改屏幕分辨率</a></p>
+</main><div class="oceanpress-backLink"></div>
+</main>

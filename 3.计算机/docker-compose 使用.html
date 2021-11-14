@@ -1,0 +1,94 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>docker-compose 使用</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="docker-compose 使用" updated="20211024194818" data-type="NodeDocument" data-n-id="20211021184001-vwnb3bv" updated="20211024194818" data-n-id="20211021184001-vwnb3bv"><h1 title="docker-compose 使用" updated="20211024194818" data-type="NodeDocument" data-n-id="20211021184001-vwnb3bv" updated="20211024194818" data-n-id="20211021184001-vwnb3bv">docker-compose 使用</h1>
+<ol start="0" updated="20211024194818" data-type="NodeList" data-n-id="20211021184329-xinqr7h">
+<li updated="20211021184326" data-type="NodeListItem" data-n-id="20211021184329-wbmsj11"><span class="ListItemDot">1.</span>
+<h1 id="docker-compose-yml-属性-以思源笔记为例-" updated="20211021184326" data-type="NodeHeading" data-n-id="20211021184235-2o6dvaj">docker-compose.yml 属性（以思源笔记为例）<a id="vditorAnchor-docker-compose-yml-属性-以思源笔记为例-" class="vditor-anchor" href="#docker-compose-yml-属性-以思源笔记为例-"><img src="./../assets/icon/alink.png" /></a></h1>
+<pre updated="20211021184346" data-type="NodeCodeBlock" data-n-id="20211021184001-36exgq9" class="code-block" data-language="yaml"><code>version: '3'
+
+services:
+  siyuan:
+    image: b3log/siyuan
+    container_name: siyuan
+    restart: always
+    volumes:
+      - /docker/siyuan:/docker/siyuan
+    command: [--resident=true,--workspace=/docker/siyuan,--ssl=true,--accessAuthCode=xx,--servePath=xxx]
+    network_mode: &quot;host&quot;
+#建议直接host，如果用bridge,请去掉下面的#让端口转发生效
+#    ports:
+#      - &quot;6806:6806&quot;
+</code></pre></li>
+<li updated="20211021185037" data-type="NodeListItem" data-n-id="20211021184353-r26jh88"><span class="ListItemDot">2.</span>
+<h1 id="使用方法" updated="20211021185924" data-type="NodeHeading" data-n-id="20211021184353-f792x0d">使用方法<a id="vditorAnchor-使用方法" class="vditor-anchor" href="#使用方法"><img src="./../assets/icon/alink.png" /></a></h1>
+<p updated="20211021185909" data-type="NodeParagraph" data-n-id="20211021184944-h2ax5n4">进入 docker-compose.yml 文件所在目录 <code data-type="NodeCodeSpan">docker-compose up</code>，即建立了 yml 文件所设置的 docker</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20211021185912-ni14en3"><span class="ListItemDot">3.</span>
+<h1 id="常用命令" updated="20211021185926" data-type="NodeHeading" data-n-id="20211021185912-k0l3kfk">常用命令<a id="vditorAnchor-常用命令" class="vditor-anchor" href="#常用命令"><img src="./../assets/icon/alink.png" /></a></h1>
+<pre updated="20211021190417" data-type="NodeCodeBlock" data-n-id="20211021190055-e4vgdqt" class="code-block" data-language="bash"><code>docker-compose ps #列出所有运行容器
+docker-compose build #构建或者重新构建服务
+docker-compose start siyuan #启动指定服务已存在的容器
+docker-compose stop siyuan #停止指定服务已存在的容器
+docker-compose rm siyuan #删除指定服务已存在的容器
+docker-compose up #构建、启动容器
+</code></pre></li>
+<li updated="20211021190907" data-type="NodeListItem" data-n-id="20211021190743-r3u9vtf"><span class="ListItemDot">4.</span>
+<h1 id="思源部署时的-nginx-反代" updated="20211021190804" data-type="NodeHeading" data-n-id="20211021190743-6y27jn4">思源部署时的 nginx 反代<a id="vditorAnchor-思源部署时的-nginx-反代" class="vditor-anchor" href="#思源部署时的-nginx-反代"><img src="./../assets/icon/alink.png" /></a></h1>
+<pre updated="20211021190907" data-type="NodeCodeBlock" data-n-id="20211021190827-tjmqucu" class="code-block" data-language="bash"><code>#在nginx反代配置文件中加入以下代码
+location /ws {
+           proxy_pass http://127.0.0.1:6806; 
+           proxy_read_timeout 60s;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'Upgrade';
+        }  
+</code></pre></li>
+<li updated="20211024194818" data-type="NodeListItem" data-n-id="20211024194623-30uwxvd"><span class="ListItemDot">5.</span>
+<h1 id="更新-docker" updated="20211024194638" data-type="NodeHeading" data-n-id="20211024194623-euogxfp">更新 docker<a id="vditorAnchor-更新-docker" class="vditor-anchor" href="#更新-docker"><img src="./../assets/icon/alink.png" /></a></h1>
+<pre updated="20211024194818" data-type="NodeCodeBlock" data-n-id="20211024194644-bc8fweu" class="code-block" data-language="bash"><code>cd SiYuan
+docker-compose stop
+docker-compose rm siyuan
+y
+docker rmi b3log/siyuan
+docker-compose up
+</code></pre></li>
+</ol>
+</main><div class="oceanpress-backLink"><h2>链接到此文档的相关文档</h2>
+<oceanpress-embedded-block src="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba.html#20211021183755-zby78kb" title="../3.计算机.html#20211021183755-zby78kb">
+    <p updated="20211021184001" data-type="NodeParagraph" data-n-id="20211021183755-zby78kb"><oceanpress-block-ref src="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba/docker-compose%20%e4%bd%bf%e7%94%a8.html#20211021184001-vwnb3bv" title="docker-compose 使用"><a href="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba/docker-compose%20%e4%bd%bf%e7%94%a8.html#20211021184001-vwnb3bv">docker-compose 使用</a></oceanpress-block-ref ></p>
+</oceanpress-embedded-block>
+</div>
+</main>

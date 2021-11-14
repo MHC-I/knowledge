@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- Copyright © 2020 by m@mcloc.cn -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MHCII Fan</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script>
+        var images=['/img/about.png','/img/archive.png',];
+        var url=images[Math.floor(Math.random()*images.length)];
+        console.log(url);
+    </script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .wrap {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            background-image: url(https://cdn.jsdelivr.net/gh/mhc-i/BingPicApi/pic/today.png);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .wrap-son {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background: rgba(59, 59, 59, 0.3);
+        }
+
+        .jumbotron {
+            background: rgba(255, 255, 255, 0);
+            color: #f5f5f5;
+        }
+
+        .love {
+            color: #ffffff;
+            margin: 0 20px;
+            line-height: 1.2;
+            font-weight: 300;
+        }
+
+        .hans-container {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            height: 120px;
+            z-index: 1;
+        }
+
+        .timer b {
+            font-size: 50px;
+            
+        }
+
+        #s {
+            font-size: 80px;
+        }
+
+        #updatalove,
+        #to_comments {
+            margin: 0 10px;
+        }
+
+        .copy {
+            position: absolute;
+            bottom: 0;
+            color: #ffffff;
+            font-size: 12px;
+        }
+
+        /* 评论 */
+        .comment {
+            margin-top: 30px;
+            margin-bottom: 100px;
+        /* 波浪 */
+        }
+        .hans-container{
+          position: fixed;
+          bottom: 0px;
+          width: 100%;
+          height: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="wrap-son">
+            <div class="container-fluid">
+                <div class="box">
+                    <div class="jumbotron text-center">
+                        <br>
+                        <br>
+                        <h1><br>离22考研还有</h1>
+                        <h3 class="timer">
+                            <div class="row">
+                                <br>
+                                <b id="d"></b> Days <b id="h"></b>Hours <b id="m"></b> Minutes
+                            </div>
+                            <div class="row">
+                                <br>
+                                <b id="s"></b> S
+                            </div>
+                        </h3>
+                </div>
+
+                <div class="row">
+                    <h4 class="love text-center"><span class="love-son"></span></h4>
+                </div>
+                <div id="hans-bolang"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- 计时器 -->
+    <script>
+        function timer() {
+            var start = new Date(2022, 12, 8, 08, 00, 00); // 2020.07.31 13:14:00
+            var t = start - new Date();
+            var h = ~~(t / 1000 / 60 / 60 % 24);
+            if (h < 10) {
+                h = "0" - h;
+            }
+            var m = ~~(t / 1000 / 60 % 60);
+            if (m < 10) {
+                m = "0" - m;
+            }
+
+            var s = ~~(t / 1000 % 60);
+            if (s < 10) {
+                s = "0" - s;
+            }
+            document.getElementById('d').innerHTML = ~~(t / 1000 / 60 / 60 / 24);
+            document.getElementById('h').innerHTML = h;
+            document.getElementById('m').innerHTML = m;
+            document.getElementById('s').innerHTML = s;
+        }
+        timer();
+        setInterval(timer, 1000);
+    </script>
+
+    <script>
+        var oComments = document.querySelector("#comments");
+        var oCommentsTop = Math.round(oComments.offsetTop);
+        //运动框架
+        function move() {
+            // 1. 关闭开启定时器;
+            clearInterval(timer);
+            var timer = setInterval(function () {
+                // 2. 计算速度;
+                var iNow = document.documentElement.scrollTop || document.body.scrollTop; //100
+                iNow = Math.round(iNow);
+                var speed = (oCommentsTop - iNow) / 10;
+                // 3. 速度取整;
+                if (speed > 0) {
+                    speed = Math.ceil(speed);
+                } else {
+                    speed = Math.floor(speed);
+                }
+                document.documentElement.scrollTop = document.body.scrollTop = iNow + speed + 1;
+                // 4. 终止条件;
+                if (iNow >= oCommentsTop) {
+                    clearInterval(timer);
+                }
+            }, 20)
+        }
+
+        to_comments.onclick = move;
+    </script>
+    <div id="hans-bolang"></div>
+<script src="js/wave.js"></script>
+</body>
+
+</html>

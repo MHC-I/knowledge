@@ -1,0 +1,98 @@
+
+<!doctype html>
+<html lang="zh">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git的一些常用操作</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    
+
+    
+
+    
+    <script src="./../assets/front-end-lib/all_components.js"></script>
+    
+        
+        
+        
+
+
+    
+
+    <link rel="stylesheet" href="./../assets/js_css/theme.css">
+    <link rel="stylesheet" href="./../assets/js_css/github-markdown-css.css">
+</head>
+
+
+
+<main id="static_app_llej" class="markdown-body">
+    <main title="Git的一些常用操作" updated="20211001100437" data-type="NodeDocument" data-n-id="20210926151614-pgbrxgi" updated="20211001100437" data-n-id="20210926151614-pgbrxgi"><h1 title="Git的一些常用操作" updated="20211001100437" data-type="NodeDocument" data-n-id="20210926151614-pgbrxgi" updated="20211001100437" data-n-id="20210926151614-pgbrxgi">Git的一些常用操作</h1>
+<ol start="0" updated="20210929154314" data-type="NodeList" data-n-id="20210929152059-7cwhrlt">
+<li updated="20210929152055" data-type="NodeListItem" data-n-id="20210929152059-r1wuvtk"><span class="ListItemDot">1.</span>
+<h1 id="新建仓库" updated="20210929153751" data-type="NodeHeading" data-n-id="20210929152019-xxxmzna">新建仓库<a id="vditorAnchor-新建仓库" class="vditor-anchor" href="#新建仓库"><img src="./../assets/icon/alink.png" /></a></h1>
+<ol start="0" data-type="NodeList" data-n-id="20210929153700-o12tbr5">
+<li data-type="NodeListItem" data-n-id="20210929153718-7xlt2bk"><span class="ListItemDot">1.</span>
+<h2 id="本地操作" updated="20210929153732" data-type="NodeHeading" data-n-id="20210929153718-yxi28xg">本地操作<a id="vditorAnchor-本地操作" class="vditor-anchor" href="#本地操作"><img src="./../assets/icon/alink.png" /></a></h2>
+<ol start="0" data-type="NodeList" data-n-id="20210929153735-k4xipsi">
+<li data-type="NodeListItem" data-n-id="20210926151821-cs90ur8"><span class="ListItemDot">1.</span>
+<p updated="20210926152049" data-type="NodeParagraph" data-n-id="20210926151821-144xi66">首先进入需要项目文件夹，执行 <code data-type="NodeCodeSpan">git init</code>，将目录变成git目录</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929153703-o2gu273"><span class="ListItemDot">2.</span>
+<p data-type="NodeParagraph" data-n-id="20210929153703-a8k43sy">执行<code data-type="NodeCodeSpan">git add .</code>将目录内的所有文件添加到git缓存区</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929153706-0o5wfcm"><span class="ListItemDot">3.</span>
+<p data-type="NodeParagraph" data-n-id="20210929153706-6safg8t">执行<code data-type="NodeCodeSpan">git commit -m '说明'</code>将文件提交到仓库，'说明'就是GitHub中如图位置所显示的信息<span class="img"><img src="../assets/截屏2021-09-26_15.23.49-20210926152419-sxop4t4.png" alt="截屏2021-09-26_15.23.49.png" data-type="NodeImage" /></span></p>
+</li>
+</ol>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929153741-h59p9cm"><span class="ListItemDot">2.</span>
+<h2 id="远程操作" updated="20210929153755" data-type="NodeHeading" data-n-id="20210929153741-8ey6q1u">远程操作<a id="vditorAnchor-远程操作" class="vditor-anchor" href="#远程操作"><img src="./../assets/icon/alink.png" /></a></h2>
+<ol start="0" data-type="NodeList" data-n-id="20210929153808-71nrwnh">
+<li data-type="NodeListItem" data-n-id="20210929153801-1dche9v"><span class="ListItemDot">1.</span>
+<p data-type="NodeParagraph" data-n-id="20210929153801-tf504xt"><code data-type="NodeCodeSpan">git remote add origin 远程地址</code>，远程地址即GitHub中如图所示的链接</p>
+<p updated="20210926152844" data-type="NodeParagraph" data-n-id="20210926152841-5upv9a7"><span class="img"><img src="../assets/截屏2021-09-26_15.27.50-20210926152843-zkwb9bx.png" alt="截屏2021-09-26_15.27.50.png" data-type="NodeImage" /></span></p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929153820-w2xlcts"><span class="ListItemDot">2.</span>
+<p data-type="NodeParagraph" data-n-id="20210929153820-xdk5unl"><kbd>可选</kbd>如果远程库不为空时执行<code data-type="NodeCodeSpan">git pull --rebase origin master</code>，将远程库与本地仓库合并</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929153823-wmdxxzs"><span class="ListItemDot">3.</span>
+<p data-type="NodeParagraph" data-n-id="20210929153823-j9rl6ta">执行<code data-type="NodeCodeSpan">git push -u origin master</code>，将本地仓库内容上传到远程仓库</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929153826-r6pk4l7"><span class="ListItemDot">4.</span>
+<p data-type="NodeParagraph" data-n-id="20210929153826-u4bfbt6">这个时候大概就会提示你需要用户名，密码，输入完成后即可上传</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li updated="20210929154314" data-type="NodeListItem" data-n-id="20210929153839-9cl5aab"><span class="ListItemDot">2.</span>
+<h1 id="忽略文件" id="20210929153839-4rn4j2i" data-type="NodeHeading" data-n-id="20210929153839-4rn4j2i">忽略文件<a id="vditorAnchor-忽略文件" class="vditor-anchor" href="#忽略文件"><img src="./../assets/icon/alink.png" /></a></h1>
+<ol start="0" updated="20210929154314" data-type="NodeList" data-n-id="20210929153938-slkidga">
+<li data-type="NodeListItem" data-n-id="20210929153936-l5495hc"><span class="ListItemDot">1.</span>
+<p updated="20210929154014" data-type="NodeParagraph" data-n-id="20210929153936-y24aaw9">进入仓库文件夹</p>
+</li>
+<li data-type="NodeListItem" data-n-id="20210929154014-8krqp1l"><span class="ListItemDot">2.</span>
+<p updated="20210929154037" data-type="NodeParagraph" data-n-id="20210929154014-qycu63m"><code data-type="NodeCodeSpan">touch .gitignore</code>，.gitignore文件</p>
+</li>
+<li updated="20210929154314" data-type="NodeListItem" data-n-id="20210929154037-uofa1g4"><span class="ListItemDot">3.</span>
+<p updated="20210929154057" data-type="NodeParagraph" data-n-id="20210929154037-09rbe69">打开.gitignore文件，添加内容忽略文件</p>
+<pre updated="20210929154314" data-type="NodeCodeBlock" data-n-id="20210929154058-8d4gw2h" class="code-block" data-language="sql"><code>temp //忽略根目录temp文件夹
+*/.Ds_Store //忽略仓库所有.Ds_Store文件
+</code></pre></li>
+</ol>
+</li>
+</ol>
+<p updated="20210929154315" data-type="NodeParagraph" data-n-id="20210929154315-epgpsos"></p>
+</main><div class="oceanpress-backLink"><h2>链接到此文档的相关文档</h2>
+<oceanpress-embedded-block src="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba.html#20210926151556-n3hwsbf" title="../3.计算机.html#20210926151556-n3hwsbf">
+    <p updated="20210926151614" data-type="NodeParagraph" data-n-id="20210926151556-n3hwsbf"><oceanpress-block-ref src="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba/Git%e7%9a%84%e4%b8%80%e4%ba%9b%e5%b8%b8%e7%94%a8%e6%93%8d%e4%bd%9c.html#20210926151614-pgbrxgi" title="Git的一些常用操作"><a href="../3.%e8%ae%a1%e7%ae%97%e6%9c%ba/Git%e7%9a%84%e4%b8%80%e4%ba%9b%e5%b8%b8%e7%94%a8%e6%93%8d%e4%bd%9c.html#20210926151614-pgbrxgi">Git的一些常用操作</a></oceanpress-block-ref ></p>
+</oceanpress-embedded-block>
+</div>
+</main>
